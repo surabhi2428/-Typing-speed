@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>typing speed</title>
+    <style>
+        #div{
+            height: 100vh;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #text{
+            border: 4px solid purple;
+            font-size: 20px;
+
+            background-color: rosybrown;
+            color: seashell;
+            border-radius: 13px;
+            padding: 10px;
+            outline: none;/* jo bahar se dikh raha h woh nii dekhega ab */
+        }
+        #btn{
+            width: 144px;
+            font-size: 24px;
+            background-color: tan;
+            color: tomato;
+            border: 4px solid violet;
+        }
+    </style>
+</head>
+<body>
+    <div id="cont">
+        <div id="div">
+            <h2>WELCOME TO TYPING SPEED</h2>
+            <h3 id="msg"></h3>
+            <textarea id="text" cols="100" rows="10"></textarea>
+            <br>
+            <button id="btn">start</button>
+        </div>
+    </div>
+    <script>
+        const letter= [
+            "Encouraging Words and Thoughts can awaken Strong Inspiration in Human Life.",
+           "  Thoughts become perception, perception becomes reality. Alter your thoughts, alter your reality. ",
+           " “Study while others are sleeping; work while others are loafing; prepare while others are playing; and dream while others are wishing.”"
+        ]
+        let msg= document.getElementById("msg")
+        let a= document.getElementById("text")
+        let b= document.getElementById("btn")
+        let start
+        let end
+        const play=()=>{
+            let ram= Math.floor(Math.random()*letter.length)
+            msg.innerText=letter[ram]
+            let date=new Date()
+            start=date.getTime()
+            b.innerText="DONE"
+
+        }
+        const playend=()=>{
+              let enddate=new Date()
+              end=enddate.getTime()
+              let time = ((end-start)/1000)
+              console.log(time) 
+              
+              //let co=document.getElementById("text").value.length
+                let word=document.getElementById("text").value
+                word=word.match(/\w+/g) 
+                if(word==null)
+{
+  msg.innerHTML="you have not written anything"
+}  
+              word=word.length
+
+              let charctercout= document.getElementById("text").value
+            //    wordcount=charctercout.split(" ").length
+            //   console.log(wordcount)   
+              let speed= Math.round((word / time)*60)
+              let finalmsg="you typed total at " + speed +" word per minuter "
+              finalmsg+=compare(msg.innerText,charctercout)
+              msg.innerText=finalmsg
+        }
+        const compare=(strmsg,strmy)=>
+        {
+            let w1=strmsg.split(" ")
+            let w2=strmy.split(" ")
+            let i=0
+            w1.forEach(function(item,index){
+                if(item==w2[index]){
+                    i++
+                }
+            })
+            let error=(w1.length-i)
+            return(i+"  correct outoff  "+w1.length+"  word and total number of error  "+error+ " .")
+
+        }
+        b.addEventListener("click",function(){
+         if(this.innerText=="start"){
+             a.disabled=false
+             
+             play()
+         }
+         else if(this.innerText=="DONE"){
+              
+            a.disabled=true
+            btn.innerText=("start")
+            playend()
+
+
+         }
+        })
+        
+        
+    </script>
+</body>
+</html>
